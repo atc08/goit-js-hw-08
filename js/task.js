@@ -24,14 +24,12 @@ imagesRef.append(...imgCard);
 
 const imgRef = document.querySelector(".gallery__image");
 const lightboxModalRef = document.querySelector(".js-lightbox");
-const lightboxOverlayRef = document.querySelector(".lightbox__overlay");
-const lightboxContentRef = document.querySelector(".lightbox__content");
 const lightboxModalImgRef = document.querySelector(".lightbox__image");
 const closeBtnRef = document.querySelector(
   'button[data-action="close-lightbox"]'
 );
 
-imgRef.addEventListener("click", onOpenImgClick);
+imagesRef.addEventListener("click", onOpenImgClick);
 
 function onOpenImgClick(event) {
   window.addEventListener("keydown", onEscapeBtn);
@@ -47,6 +45,7 @@ function onOpenImgClick(event) {
 function onEscapeBtn(event) {
   if (event.code === "Escape") {
     onCloseBtn();
+    console.log("fdsggjd");
   }
 }
 
@@ -62,10 +61,7 @@ function onCloseBtn() {
 lightboxModalRef.addEventListener("click", onCloseModal);
 
 function onCloseModal(event) {
-  window.removeEventListener("keydown", onEscapeBtn);
-  if (event.target.nodeName !== "IMG" || event.target === closeBtnRef) {
-    lightboxModalRef.classList.remove("is-open");
-    lightboxModalImgRef.setAttribute("src", "");
-    lightboxModalImgRef.setAttribute("alt", "");
+  if (event.target.nodeName !== "IMG") {
+    onCloseBtn();
   }
 }
