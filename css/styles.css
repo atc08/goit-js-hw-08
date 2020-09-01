@@ -71,7 +71,7 @@ body {
   transition: opacity 200ms linear;
 }
 
-.lightbox.is-open {
+.is-open {
   opacity: 1;
   pointer-events: initial;
 }
