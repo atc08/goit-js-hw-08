@@ -32,7 +32,7 @@ const closeBtnRef = document.querySelector(
 imagesRef.addEventListener("click", onOpenImgClick);
 
 function onOpenImgClick(event) {
-  window.addEventListener("keydown", onEscapeBtn);
+  window.addEventListener("keydown", onButtons);
   event.preventDefault();
   if (event.target.nodeName !== "IMG") {
     return;
@@ -42,17 +42,37 @@ function onOpenImgClick(event) {
   lightboxModalImgRef.setAttribute("alt", event.target.alt);
 }
 
-function onEscapeBtn(event) {
+function onButtons(event) {
   if (event.code === "Escape") {
     onCloseBtn();
-    console.log("fdsggjd");
   }
+  if (event.code === "ArrowRight") {
+    onNext();
+  }
+  if (event.code === "ArrowLeft") {
+    onPrev();
+  }
+}
+
+lightboxModalImgRef.setAttribute("data-index", "0");
+let index = lightboxModalImgRef.dataset.index;
+
+function onNext() {
+  if (index > imagesMassive.length - 2) index = -1;
+  ++index;
+  lightboxModalImgRef.src = imagesMassive[index].original;
+}
+
+function onPrev() {
+  if (index < 1) index = imagesMassive.length;
+  --index;
+  lightboxModalImgRef.src = imagesMassive[index].original;
 }
 
 closeBtnRef.addEventListener("click", onCloseBtn);
 
 function onCloseBtn() {
-  window.removeEventListener("keydown", onEscapeBtn);
+  window.removeEventListener("keydown", onButtons);
   lightboxModalRef.classList.remove("is-open");
   lightboxModalImgRef.setAttribute("src", "");
   lightboxModalImgRef.setAttribute("alt", "");
